@@ -1,0 +1,10 @@
+FastAPI demo for SysDev course
+
+sudo apt-get install python3-venv uvicorn sqlite 
+cd ~/code/fastapi_demo
+python3 -m venv venv
+source venv/bin/activate
+pip3 install fastapi[all] requests sqlmodel
+uvicorn app:app --reload
+
+WIP
