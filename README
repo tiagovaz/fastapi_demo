@@ -5,6 +5,6 @@ cd ~/code/fastapi_demo
 python3 -m venv venv
 source venv/bin/activate
 pip3 install fastapi[all] requests sqlmodel
-uvicorn app:app --reload
+uvicorn main:app --reload
 
 WIP
