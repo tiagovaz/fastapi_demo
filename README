@@ -1,6 +1,6 @@
 FastAPI demo for SysDev course
 
-sudo apt-get install python3-venv uvicorn sqlite 
+sudo apt-get install python3-venv uvicorn sqlite3
 cd ~/code/fastapi_demo
 python3 -m venv venv
 source venv/bin/activate
