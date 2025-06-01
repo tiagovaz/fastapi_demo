@@ -1,12 +1,12 @@
 # FastAPI Demo for SysDev Course
 
-This project is a basic FastAPI application prepared for a System Development
-course (college level). The idea is to progressively demonstrate a basic
-frontend/backend/database integration, as I've seen many students having
+This project is a basic To-Do FastAPI application prepared for a System
+Development course (college level). The idea is to progressively demonstrate a
+basic frontend/backend/database integration, as I've seen many students having
 trouble to understand the 'magic' behind a dynamic website in the beginning of
 the course.
 
-I also present them a simple deployment strategy in a Linux server using
+I also encourage them to perform a simple deployment in a Linux server using
 systemd, uvicorn and nginx.
 
 The idea is to start from a basic non-persistent single-file application, then
@@ -16,15 +16,15 @@ This codebase also helps introducing students to a few concepts such as MVC
 
 ---
 
-## Quickstart
+## Setup and run
 
-### 1. Install Python Virtual Environment Tools
+### 1. Install Python virtual environment
 
 ```bash
 sudo apt-get install python3-venv
 ```
 
-### 2. Set Up the Project Environment
+### 2. Set up the project environment
 
 ```bash
 cd ~/code/fastapi_demo
@@ -32,13 +32,13 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3. Install dependencies
 
 ```bash
 pip install fastapi[all] requests sqlmodel
 ```
 
-### 4. Enter in one of the directories (01, 02, etc) and serve your application through uvicorn:
+### 4. Enter in one of the app directories and run it with uvicorn:
 
 ```bash
 uvicorn main:app --reload
@@ -48,7 +48,7 @@ This will start the development server with auto-reload enabled at [http://127.0
 
 ---
 
-## Running as a systemd Service
+## Running as a systemd service
 
 To run your FastAPI app as a service using `systemd`, follow these steps:
 
@@ -58,18 +58,45 @@ To run your FastAPI app as a service using `systemd`, follow these steps:
 sudo cp fastapi-todo.service /etc/systemd/system/
 ```
 
-### 2. Reload systemd Daemon
+### 2. Reload systemd daemon
 
 ```bash
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 ```
 
-### 3. Enable and Start the Service
+### 3. Enable and start the service
 
 ```bash
 sudo systemctl enable fastapi-todo.service
 sudo systemctl start fastapi-todo.service
+```
+
+## Serving your application with Nginx
+
+### 1. Install Nginx
+```bash
+sudo apt install nginx
+```
+
+### 2. Make the necessary changes to the provided Nginx config file and copy it
+to /etc/nginx/sites-available/
+
+```bash
+cp fastapi_todo.conf /etc/nginx/sites-available/
+```
+
+### 3. Create a link in 'sites-enabled' to enable your config:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/fastapi_todo.conf /etc/nginx/sites-enabled/
+```
+
+### 4. Test and reload Nginx:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ---
@@ -82,7 +109,7 @@ fastapi_demo/
 ├── 02-single-file-HTML (HTML Template Rendering)
 ├── 03-single-file-HTML-persistent (HTML Template Rendering, with SQL)
 ├── 04-MVC-HTML-persistent (HTML Template Rendering, with SQL in a modular structure - MVC)
-└── Resources (systemd, nginx, diagrams, etc)
+└── resources (config for systemd, nginx, diagrams, etc)
 ```
 
 Make sure your `main.py` contains the FastAPI app under the variable `app`, as expected by Uvicorn.
@@ -94,6 +121,20 @@ Make sure your `main.py` contains the FastAPI app under the variable `app`, as e
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
 - [Uvicorn](https://www.uvicorn.org/)
 - [systemd Documentation](https://www.freedesktop.org/wiki/Software/systemd/)
+- [Nginx Docs](https://nginx.org/en/docs/)
+
+## Next steps
+
+- Add options to delete and update TodoItem objects
+- Add one-to-many and many-to-many relationships in the TodoItem class, for example adding user and tags
+- Use another DBSM such as MySQL and PostgreSQL
+- Host your application in a public VPS (with a public IP address) and set a
+  domain name to it
+- Use certbot to create a SSL certificate from Let's Encrypt and serve your application
+  through HTTPS
+- Implement a basic auto-deployment using webhooks, github actions, or just a
+  simple cronjob task
+- Implement a backup strategy and secure your server
 
 ---
 
