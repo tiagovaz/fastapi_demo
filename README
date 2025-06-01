@@ -1,10 +1,17 @@
 FastAPI demo for SysDev course
 
-sudo apt-get install python3-venv uvicorn sqlite3
+sudo apt-get install python3-venv
 cd ~/code/fastapi_demo
 python3 -m venv venv
 source venv/bin/activate
 pip3 install fastapi[all] requests sqlmodel
 uvicorn main:app --reload
 
-WIP
+Systemd service
+
+sudo cp fastapi-todo.service /etc/systemd/system/
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable fastapi-todo.service
+sudo systemctl start fastapi-todo.service
+
