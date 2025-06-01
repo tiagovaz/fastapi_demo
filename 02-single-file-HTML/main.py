@@ -1,8 +1,8 @@
-
 from fastapi import FastAPI, HTTPException, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import List
+from pydantic import BaseModel
 
 app = FastAPI(title="FastAPI To-Do App")
 
@@ -10,12 +10,19 @@ app = FastAPI(title="FastAPI To-Do App")
 todo_db = []
 
 # Define the data model for a to-do item
-# This time not using pydantic, as we don't need validation/serialization, just rendering HTML
+# We don't really need pydantic here, as we don't need serialization, we're
+# just rendering HTML
 class TodoItem:
     def __init__(self, id: int, title: str, completed: bool = False):
         self.id = id
         self.title = title
         self.completed = completed
+
+# ...but we can keep using pydantic as well
+#class TodoItem(BaseModel):
+#    id: int
+#    title: str
+#    completed: bool = False
 
 # Initialize Jinja2 templates
 templates = Jinja2Templates(directory="templates")
@@ -30,6 +37,7 @@ async def read_root(request: Request):
 # Form(...) tells FastAPI to extract this value from an HTML form.
 # The ... inside it means required
 @app.post("/todos", response_class=HTMLResponse)
+# type hints will enforce validation even for non-pydantic objects
 async def create_todo_form(request: Request, id: int = Form(...), title: str = Form(...)):
     item = TodoItem(id=id, title=title)
     todo_db.append(item)
