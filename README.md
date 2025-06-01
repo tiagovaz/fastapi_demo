@@ -97,6 +97,6 @@ Make sure your `main.py` contains the FastAPI app under the variable `app`, as e
 
 ---
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License.
