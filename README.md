@@ -82,7 +82,7 @@ sudo apt install nginx
 to /etc/nginx/sites-available/
 
 ```bash
-cp fastapi_todo.conf /etc/nginx/sites-available/
+sudo cp fastapi_todo.conf /etc/nginx/sites-available/
 ```
 
 ### 3. Create a link in 'sites-enabled' to enable your config:
@@ -106,7 +106,7 @@ instructions.
 ### 1. Install MariaDB server:
 
 ```bash
-apt install mariadb-server
+sudo apt install mariadb-server
 ```
 
 ### 2. Use the local client to create the database and credentials:
