@@ -7,7 +7,7 @@ from typing import Optional
 app = FastAPI(title="FastAPI To-Do App")
 
 # SQLite database setup
-DATABASE_URL = "sqlite:///./test.db"
+DATABASE_URL = "sqlite:///./todo.db"
 engine = create_engine(DATABASE_URL, echo=True)
 
 # SQLModel data model
