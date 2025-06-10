@@ -61,7 +61,6 @@ sudo cp fastapi-todo.service /etc/systemd/system/
 ### 2. Reload systemd daemon
 
 ```bash
-sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 ```
 
