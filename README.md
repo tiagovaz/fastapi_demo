@@ -99,6 +99,39 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
+## Using MariaDB (MySQL):
+
+If you wish to use MariaDB rather than SQLite, check the following
+instructions.
+
+### 1. Install MariaDB server:
+
+```bash
+apt install mariadb-server
+```
+
+### 2. Use the local client to create the database and credentials:
+
+```bash
+sudo mysql -u root
+```
+
+Then in your mariadb prompt:
+
+```bash
+CREATE DATABASE tododb;
+CREATE USER 'todouser'@'localhost' IDENTIFIED BY 'yourpasswd';
+GRANT ALL PRIVILEGES ON todouser.* TO 'tododb'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+### 3. Edit your .env accordingly:
+
+```bash
+# MySQL database URL
+DATABASE_URL=mysql+pymysql://todouser:yourpasswd@localhost/tododb
+```
+
 ---
 
 ## Project Structure
