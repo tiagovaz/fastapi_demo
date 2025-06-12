@@ -12,7 +12,7 @@ load_dotenv()
 # Replace with your GitHub webhook secret
 GITHUB_SECRET = os.getenv("GITHUB_SECRET")
 
-def verify_signature(payload: bytes, signature: str) -> bool:
+def _verify_signature(payload: bytes, signature: str) -> bool:
     mac = hmac.new(GITHUB_SECRET.encode(), msg=payload, digestmod=hashlib.sha256)
     expected_signature = f"sha256={mac.hexdigest()}"
     return hmac.compare_digest(expected_signature, signature)
@@ -26,7 +26,7 @@ async def github_webhook(
     # entire application while waiting
     body = await request.body()
 
-    if not x_hub_signature_256 or not verify_signature(body, x_hub_signature_256):
+    if not x_hub_signature_256 or not _verify_signature(body, x_hub_signature_256):
         raise HTTPException(status_code=403, detail="Invalid signature")
 
     # Trigger deployment script
