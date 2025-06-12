@@ -131,6 +131,58 @@ FLUSH PRIVILEGES;
 DATABASE_URL=mysql+pymysql://todouser:yourpasswd@localhost/tododb
 ```
 
+## Serving HTTPS
+
+Steps to deploy the app using a SSL certificate from Let's Encrypt.
+
+### 1. Install Certbot and Nginx Plugin, then create certificate
+
+```bash
+sudo apt update
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d yourdomain.com
+```
+
+### 2. Nginx Configuration for SSL + Redirect
+
+Edit the provided conf file (fastapi_todo_ssl.conf) and replace the current one
+which is serving HTTP only.
+
+```bash
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    # Redirect all HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name yourdomain.com;
+
+    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+### 3. Test and Reload Nginx
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
 ---
 
 ## Project Structure
