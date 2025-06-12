@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,7 @@
     <ul class="list-group mb-4">
       {% for todo in todos %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-		<span class="{{ 'text-decoration-line-through' if todo.completed }}">{{ todo.id }} - {{ todo.title }}</span>
+		<span class="{{ 'text-decoration-line-through' if todo.completed }}">{{ todo.title }}</span>
           <form action="/todos/{{ todo.id }}" method="post" style="display:inline;">
             <button type="submit" class="btn btn-sm btn-success" {% if todo.completed %}disabled{% endif %}>✓</button>
           </form>
