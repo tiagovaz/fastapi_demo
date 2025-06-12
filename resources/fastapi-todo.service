@@ -3,10 +3,10 @@ Description=FastAPI To-Do App with Uvicorn
 After=network.target
 
 [Service]
-User=tvaz
-Group=tvaz
-WorkingDirectory=/home/tvaz/code/fastapi_demo/04-MVC-HTML-persistent
-ExecStart=/home/tvaz/code/fastapi_demo/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+User=debian
+Group=debian
+WorkingDirectory=/home/debian/fastapi_demo/04-MVC-HTML-persistent
+ExecStart=/home/debian/fastapi_demo/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=3
 

@@ -3,11 +3,14 @@ import subprocess
 import hmac
 import hashlib
 import os
+from dotenv import load_dotenv
 
 router = APIRouter()
 
+load_dotenv()
+
 # Replace with your GitHub webhook secret
-GITHUB_SECRET = os.getenv("GITHUB_SECRET", "your_webhook_secret")
+GITHUB_SECRET = os.getenv("GITHUB_SECRET")
 
 def verify_signature(payload: bytes, signature: str) -> bool:
     mac = hmac.new(GITHUB_SECRET.encode(), msg=payload, digestmod=hashlib.sha256)
