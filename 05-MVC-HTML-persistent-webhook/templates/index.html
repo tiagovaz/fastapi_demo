@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <h2 class="text-center mb-4">📝 To-Do List</h2>
+    <ul class="list-group mb-4">
+      {% for todo in todos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span class="{{ 'text-decoration-line-through' if todo.completed }}">{{ todo.title }}</span>
+          <form action="/todos/{{ todo.id }}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-success" {% if todo.completed %}disabled{% endif %}>✓</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <h2>Add Todo</h2>
+    <form action="/todos" method="post" class="row g-3">
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="title" placeholder="Title" required>
+      </div>
+      <div class="col-md-3">
+        <input type="number" class="form-control" name="id" placeholder="ID" required>
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary w-100">Add</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
