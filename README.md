@@ -120,7 +120,7 @@ Then in your mariadb prompt:
 ```bash
 CREATE DATABASE tododb;
 CREATE USER 'todouser'@'localhost' IDENTIFIED BY 'yourpasswd';
-GRANT ALL PRIVILEGES ON todouser.* TO 'tododb'@'localhost';
+GRANT ALL PRIVILEGES ON tododb.* TO 'todouser'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
